@@ -71,7 +71,8 @@ $hotels = [
     <?php 
       
         foreach($hotels as $key => $hotel){
-            if($data['vote']==''){
+
+            if($hotel['vote']>=$data['vote'] && $hotel['parking']==true && $data['option']=='Si'){
                 echo "<tbody>
                         <tr>
                             <th scope='col'>".$hotel['name']."</th>
@@ -80,7 +81,16 @@ $hotels = [
                             <td>".$hotel['distance_to_center']." km</td>
                         </tr>
                     </tbody>";
-            }elseif($hotel['vote']>=$data['vote'] && $hotel['parking']==true && $data['option']=='Si'){
+            }elseif($hotel['vote']>=$data['vote'] && $data['option']=='null'){
+                echo "<tbody>
+                        <tr>
+                            <th scope='col'>".$hotel['name']."</th>
+                            <td>".$hotel['description']."</td>
+                            <td>".$hotel['vote']."</td>
+                            <td>".$hotel['distance_to_center']." km</td>
+                        </tr>
+                    </tbody>";
+            }elseif($hotel['parking']==true && $data['option']=='Si'){
                 echo "<tbody>
                         <tr>
                             <th scope='col'>".$hotel['name']."</th>
