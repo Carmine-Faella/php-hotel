@@ -10,7 +10,7 @@
 <body>
 
 <?php
-$name='';
+$data = $_GET;
 $hotels = [
 
     [
@@ -53,10 +53,26 @@ $hotels = [
 
 ?>
 
+<form action="index.php" method="get">
+    <label for="option">Parcheggio:</label>
+    <select id="option" name="option">
+        <option value="null">-</option>
+        <option value="Si">Si</option>
+    </select>
+    <label for="vote">Voto:</label>
+    <input type="number" name="vote" min="0" max="5" id="vote">
+    <button type="submit">Invia</button>
+</form>
+
 <table class="table">
+
   <tbody>
-        <?php foreach($hotels as $key => $hotel){
-            echo "<tbody>
+
+    <?php 
+      
+        foreach($hotels as $key => $hotel){
+            if($data['vote']==''){
+                echo "<tbody>
                         <tr>
                             <th scope='col'>".$hotel['name']."</th>
                             <td>".$hotel['description']."</td>
@@ -64,7 +80,20 @@ $hotels = [
                             <td>".$hotel['distance_to_center']." km</td>
                         </tr>
                     </tbody>";
-    }?>
+            }elseif($hotel['vote']>=$data['vote'] && $hotel['parking']==true && $data['option']=='Si'){
+                echo "<tbody>
+                        <tr>
+                            <th scope='col'>".$hotel['name']."</th>
+                            <td>".$hotel['description']."</td>
+                            <td>".$hotel['vote']."</td>
+                            <td>".$hotel['distance_to_center']." km</td>
+                        </tr>
+                    </tbody>";
+            }
+        }
+
+    ?>
+
   </tbody>
  
 
